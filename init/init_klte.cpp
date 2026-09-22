@@ -18,7 +18,8 @@
 
 #include "property_service.h"
 
-using android::init::property_set;
+namespace android {
+namespace init {
 
 void vendor_load_properties()
 {
@@ -29,3 +30,6 @@ void vendor_load_properties()
     property_set("ro.build.product", "kltedcmactive");
     property_set("ro.ril.enable.dcm.feature", "1");
 }
+
+}  // namespace init
+}  // namespace android
