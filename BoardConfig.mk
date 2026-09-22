@@ -47,9 +47,15 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/bootimg.mk
 
-# Kernel prebuilt binaries (for minimal-manifest-twrp build)
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/zImage
-TARGET_PREBUILT_DTB := $(LOCAL_PATH)/dtb.img
+# Kernel configuration (supports source build or local prebuilt binaries)
+ifeq ($(wildcard $(LOCAL_PATH)/zImage),)
+    TARGET_KERNEL_SOURCE := kernel/samsung/msm8974
+    TARGET_KERNEL_CONFIG := lineage_klteactivexx_defconfig
+    BOARD_KERNEL_IMAGE_NAME := zImage
+else
+    TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/zImage
+    TARGET_PREBUILT_DTB := $(LOCAL_PATH)/dtb.img
+endif
 
 # NTT Docomo SC-02G 16GB PIT (KACTIVE_JPN_DCM.pit) Partition Sizes
 BOARD_BOOTIMAGE_PARTITION_SIZE := 13631488

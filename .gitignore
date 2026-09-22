@@ -1,0 +1,12 @@
+# Binaries & Images
+zImage
+dtb.img
+*.img
+*.tar
+*.cpio
+*.gz
+*.xz
+
+# Build artifacts
+out/
+.ninja*
