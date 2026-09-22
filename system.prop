@@ -1,0 +1,14 @@
+#
+# system.prop for kltedcmactive (SC-02G)
+#
+
+# Platform
+ro.board.platform=msm8974
+
+# Display
+ro.sf.lcd_density=480
+
+# Radio
+ro.telephony.default_network=9
+telephony.lteOnGsmDevice=1
+ro.ril.enable.dcm.feature=1
