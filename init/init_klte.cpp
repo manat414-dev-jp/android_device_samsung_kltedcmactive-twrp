@@ -14,27 +14,15 @@
  * limitations under the License.
  */
 
-#include <stdlib.h>
-#include <string.h>
+#include <string>
 
-#include "vendor_init.h"
 #include "property_service.h"
 
-#include "init_msm.h"
+using android::init::property_set;
 
-#define UNUSED(x) (void)(x)
-
-void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type)
+void vendor_load_properties()
 {
-    char bootloader[PROP_VALUE_MAX];
-
-    UNUSED(msm_id);
-    UNUSED(msm_ver);
-    UNUSED(board_type);
-
-    property_get("ro.bootloader", bootloader);
-
-    // Default to SC-02G / kltedcmactive (Samsung Galaxy S5 Active NTT Docomo)
+    // SC-02G / kltedcmactive (Samsung Galaxy S5 Active NTT Docomo)
     property_set("ro.product.model", "SC-02G");
     property_set("ro.product.device", "kltedcmactive");
     property_set("ro.product.name", "kltedcmactive");
