@@ -24,9 +24,19 @@ ifdef TARGET_PREBUILT_DTB
 	BOARD_MKBOOTIMG_ARGS += --dt $(TARGET_PREBUILT_DTB)
 endif
 
-$(recovery_ramdisk): $(recovery_uncompressed_ramdisk)
-	@echo -e ${CL_GRN}"----- Compressing recovery ramdisk (xz) ------"${CL_RST}
-	$(hide) xz -9c --format=lzma --lzma1=dict=16MiB $< > $@
+$(recovery_ramdisk): $(recovery_uncompressed_ramdisk) $(MKBOOTFS)
+	@echo -e ${CL_GRN}"----- Slimming down recovery root for 15MB partition ------"${CL_RST}
+	$(hide) rm -f $(TARGET_RECOVERY_ROOT_OUT)/sbin/charger \
+		$(TARGET_RECOVERY_ROOT_OUT)/sbin/*f2fs* \
+		$(TARGET_RECOVERY_ROOT_OUT)/sbin/sgdisk \
+		$(TARGET_RECOVERY_ROOT_OUT)/sbin/avbctl \
+		$(TARGET_RECOVERY_ROOT_OUT)/sbin/android.* \
+		$(TARGET_RECOVERY_ROOT_OUT)/sbin/libhidl* \
+		$(TARGET_RECOVERY_ROOT_OUT)/sbin/libvintf* \
+		$(TARGET_RECOVERY_ROOT_OUT)/sbin/libhwbinder*
+	$(hide) find $(TARGET_RECOVERY_ROOT_OUT)/twres/languages -name '*.xml' ! -name 'en.xml' ! -name 'ja.xml' -delete 2>/dev/null || true
+	@echo -e ${CL_GRN}"----- Compressing recovery ramdisk (gzip) ------"${CL_RST}
+	$(hide) $(MKBOOTFS) $(TARGET_RECOVERY_ROOT_OUT) | gzip -9c > $@
 
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) $(TARGET_PREBUILT_DTB) $(recovery_kernel) $(recovery_ramdisk)
 	@echo -e ${CL_GRN}"----- Making recovery image ------"${CL_RST}

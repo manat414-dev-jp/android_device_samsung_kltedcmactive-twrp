@@ -40,7 +40,7 @@ COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60 -DQCOM_HARDWARE -DNO_SECURE_DISCARD
 
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.bootdevice=msm_sdcc.1 user_debug=31 msm_rtb.filter=0x3F
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive user_debug=23 msm_rtb.filter=0x37 ehci-hcd.park=3
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
@@ -65,7 +65,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 
-# TWRP Recovery Settings
+# TWRP Recovery Config
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery.fstab
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
@@ -85,12 +85,18 @@ TW_HAS_DOWNLOAD_MODE := true
 TW_MTP_DEVICE := "/dev/mtp_usb"
 TW_DEFAULT_EXTERNAL_STORAGE := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_NO_EXFAT_FUSE := false
-TW_INCLUDE_NTFS_3G := true
+TW_NO_EXFAT_FUSE := true
+TW_INCLUDE_NTFS_3G := false
 TW_EXCLUDE_SUPERSU := true
+TW_EXCLUDE_TWRPAPP := true
+TW_EXCLUDE_PYTHON := true
+TW_EXCLUDE_NANO := true
+TW_EXCLUDE_BASH := true
+TW_EXCLUDE_TZDATA := true
+TW_EXCLUDE_ENCRYPTED_BACKUPS := true
 
 # Encryption support
-TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO := false
 # TARGET_HW_DISK_ENCRYPTION := true
 # TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
