@@ -89,10 +89,10 @@ TW_NO_EXFAT_FUSE := false
 TW_INCLUDE_NTFS_3G := true
 TW_EXCLUDE_SUPERSU := true
 
-# Encryption support (Qualcomm HW disk encryption & Keymaster)
+# Encryption support
 TW_INCLUDE_CRYPTO := true
-TARGET_HW_DISK_ENCRYPTION := true
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
+# TARGET_HW_DISK_ENCRYPTION := true
+# TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
 # Init properties from bootloader
 TARGET_INIT_VENDOR_LIB := libinit_kltedcmactive
